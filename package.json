@@ -1,0 +1,10 @@
+{
+  "name": "praxis-trabalhista",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Base de redação de peças trabalhistas para o Claude Code.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=18.19" },
+  "scripts": { "test": "node --test \"tests/*.test.mjs\" && python -m unittest discover -s tests -p \"test_*.py\"" }
+}

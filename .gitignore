@@ -1,0 +1,19 @@
+# Nada do escritório entra aqui: perfil, timbrado, petições e base de teses
+# ficam na pasta pessoal (~/.claude/praxis), fora de qualquer repositório.
+*.docx
+*.doc
+*.pdf
+base-teses.json
+perfil.md
+!skills/perfil/templates/perfil.md
+gosto.md
+!skills/lembrar/templates/gosto.md
+anonimizar-extra.txt
+tests/lista-negra.txt
+
+node_modules/
+__pycache__/
+*.pyc
+~$*
+Thumbs.db
+desktop.ini

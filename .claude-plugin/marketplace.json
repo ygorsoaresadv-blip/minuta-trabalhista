@@ -1,0 +1,13 @@
+{
+  "name": "praxis-trabalhista",
+  "owner": { "name": "Ygor Soares" },
+  "metadata": { "description": "Marketplace do plugin praxis, base de redação trabalhista para o Claude Code." },
+  "plugins": [
+    {
+      "name": "praxis",
+      "source": "./",
+      "description": "Base de redação de peças trabalhistas: regras de escrita, timbrado próprio e base de teses anonimizada a partir das suas petições.",
+      "category": "legal"
+    }
+  ]
+}

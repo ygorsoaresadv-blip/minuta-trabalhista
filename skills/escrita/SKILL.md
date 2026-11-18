@@ -1,6 +1,6 @@
 ---
 name: escrita
-description: "Regras de escrita, formatação e estrutura de peças trabalhistas brasileiras: negrito, parênteses, citação de lei, súmula, OJ, tema e jurisprudência, ordem do mérito, parágrafos, marcas de pendência, rol de pedidos e fecho. Use SEMPRE que for redigir, revisar, adaptar, corrigir ou conferir petição inicial, contestação, réplica, contrarrazões (CRRO), recurso ordinário (RO) ou tese trabalhista, mesmo que o pedido não fale em estilo nem formatação ('faz a inicial', 'redige esse tópico', 'escreve a tese de horas extras', 'revisa essa contestação', 'como cito súmula', 'onde vai o negrito'). Para gerar o Word com o timbrado do escritório, combine com praxis:documento; para buscar teses nas petições do próprio escritório, com praxis:teses."
+description: "Regras de escrita, formatação e estrutura de peças trabalhistas brasileiras: negrito, parênteses, citação de lei, súmula, OJ, tema e jurisprudência, ordem do mérito, parágrafos, marcas de pendência, rol de pedidos e fecho. Use SEMPRE que for redigir, revisar, adaptar, corrigir ou conferir petição inicial, contestação, réplica, contrarrazões (CRRO), recurso ordinário (RO) ou tese trabalhista, mesmo que o pedido não fale em estilo nem formatação ('faz a inicial', 'redige esse tópico', 'escreve a tese de horas extras', 'revisa essa contestação', 'como cito súmula', 'onde vai o negrito'). Para gerar o Word com o timbrado do escritório, combine com minuta:documento; para buscar teses nas petições do próprio escritório, com minuta:teses."
 ---
 
 # Escrita trabalhista
@@ -11,16 +11,16 @@ e conduza o juiz até a conclusão.
 ## Antes de escrever: as três camadas
 
 1. **Esta base**, igual para todos.
-2. **Gosto pessoal** do advogado: `~/.claude/praxis/gosto.md`, se existir.
-3. **Perfil do escritório**: `~/.claude/praxis/perfil.md`, se existir. Traz o nome do escritório, o advogado e a OAB, a
+2. **Gosto pessoal** do advogado: `~/.claude/minuta/gosto.md`, se existir.
+3. **Perfil do escritório**: `~/.claude/minuta/perfil.md`, se existir. Traz o nome do escritório, o advogado e a OAB, a
    cidade do fecho, a UF do endereçamento, o fecho fixo da inicial, o percentual de honorários e as regras próprias.
 
 Leia o perfil e o gosto antes de redigir. Vale a camada mais específica: o pedido do advogado para a peça, depois o
 perfil, depois o gosto pessoal, depois esta base. Onde esta base mostra `[ADVOGADO]`, `[OAB]`, `[CIDADE]`, `[UF]` ou
 `[HONORÁRIOS]`, use o valor do perfil; sem perfil, deixe o marcador e avise. A pasta pode ser trocada pela variável de
-ambiente `PRAXIS_HOME`.
+ambiente `MINUTA_HOME`.
 
-Sem perfil, sugira uma vez `/praxis:perfil`, que leva poucos minutos, e siga com os marcadores.
+Sem perfil, sugira uma vez `/minuta:perfil`, que leva poucos minutos, e siga com os marcadores.
 
 ## Por onde começar
 
@@ -39,7 +39,7 @@ Leia também, sempre que a tarefa tocar nesses assuntos:
 - `references/negrito-e-formatacao.md`: o que sai em negrito (e quem marca), Word, títulos, recuos, bloco de
   jurisprudência, marcas coloridas, rol de pedidos e quadro de verbas.
 
-Para buscar teses já escritas pelo escritório, use `praxis:teses`. Para gerar o `.docx`, use `praxis:documento`, que
+Para buscar teses já escritas pelo escritório, use `minuta:teses`. Para gerar o `.docx`, use `minuta:documento`, que
 abre o timbrado do perfil; não recrie o timbrado.
 
 ## Dois modos de trabalho
@@ -78,7 +78,7 @@ doutrina em texto novo. Julgado nunca é escrito de cabeça: ou vem copiado da f
 reclamante requer", "a reclamada impugna", "Requer-se".
 
 **4. Travessão proibido.** O "—" nunca aparece: use vírgula, ponto, dois-pontos, ponto e vírgula ou parênteses. A
-`praxis:documento` recusa gerar o Word com ele. A meia-risca "–" só tem usos fixos: endereçamento ("– [UF]"),
+`minuta:documento` recusa gerar o Word com ele. A meia-risca "–" só tem usos fixos: endereçamento ("– [UF]"),
 complemento de título ("DAS HORAS EXTRAS – ESCALA 6X1") e "– sem destaque no original".
 
 **5. Conduza o juiz.** Quem lê forma a impressão cedo e tende a confirmá-la. Por isso a premissa vem antes da
@@ -98,7 +98,7 @@ verbas vai na mesma frase, separada por vírgula, ou no quadro das verbas rescis
 introdução genérica: convença pelo argumento, não pelo volume.
 
 **9. Negrito, em resumo.** Um único núcleo do pedido principal de cada tópico, nunca a frase inteira, e o cálculo de
-horas completo. O resto (partes, valores, horas, datas, súmulas, temas, OJs) a `praxis:documento` destaca sozinha.
+horas completo. O resto (partes, valores, horas, datas, súmulas, temas, OJs) a `minuta:documento` destaca sozinha.
 Detalhes e armadilhas em `references/negrito-e-formatacao.md`.
 
 **10. Citação, em resumo.** Forma padrão: `art. 71, § 4º, da CLT`, `Súmula nº 338, III, do TST`. Súmula, OJ e Tema no

@@ -6,7 +6,7 @@ oab: ""
 cidade: ""
 uf: ""
 honorarios: "15"
-timbrado: "~/.claude/praxis/timbrado.docx"
+timbrado: "~/.claude/minuta/timbrado.docx"
 fonte: "Times New Roman"
 tamanho: "12"
 tamanho_jurisprudencia: "10"
@@ -17,7 +17,7 @@ margens_cm: "3 2 2 3"
 
 # Perfil do escritório
 
-Fica em `~/.claude/praxis/perfil.md`, só neste computador. Vale por cima da base do plugin e do gosto pessoal.
+Fica em `~/.claude/minuta/perfil.md`, só neste computador. Vale por cima da base do plugin e do gosto pessoal.
 Nada de dado de cliente aqui.
 
 ## Escritório
@@ -29,7 +29,7 @@ Nada de dado de cliente aqui.
 ## Fecho da inicial
 
 Texto fixo que entra depois do rol de pedidos (juros e correção, provas, citação, valor da causa). Cole aqui o do
-escritório; sem ele, vale o padrão de `praxis:escrita`.
+escritório; sem ele, vale o padrão de `minuta:escrita`.
 
 > [fecho do escritório]
 

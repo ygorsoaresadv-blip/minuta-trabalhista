@@ -8,10 +8,10 @@ Uso:
 
 De onde vem o timbrado, nesta ordem:
     1. --timbrado
-    2. campo "timbrado:" no topo do perfil (~/.claude/praxis/perfil.md)
-    3. ~/.claude/praxis/timbrado.docx
+    2. campo "timbrado:" no topo do perfil (~/.claude/minuta/perfil.md)
+    3. ~/.claude/minuta/timbrado.docx
     4. nenhum: folha em branco, com as margens do perfil
-A pasta ~/.claude/praxis pode ser trocada pela variável de ambiente PRAXIS_HOME.
+A pasta ~/.claude/minuta pode ser trocada pela variável de ambiente MINUTA_HOME.
 
 O timbrado é um .docx comum do escritório, com logo e dados no cabeçalho e no rodapé. O corpo dele é apagado; cabeçalho,
 rodapé, margens e numeração de página ficam como estão.
@@ -42,13 +42,13 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Perfil do escritório
 # ---------------------------------------------------------------------------
-def praxis_home():
-    return Path(os.environ.get("PRAXIS_HOME") or Path.home() / ".claude" / "praxis")
+def minuta_home():
+    return Path(os.environ.get("MINUTA_HOME") or Path.home() / ".claude" / "minuta")
 
 
 def ler_perfil(caminho=None):
     """Lê os campos 'chave: valor' do bloco entre '---' no topo do perfil. Sem perfil, devolve {}."""
-    caminho = Path(caminho) if caminho else praxis_home() / "perfil.md"
+    caminho = Path(caminho) if caminho else minuta_home() / "perfil.md"
     if not caminho.is_file():
         return {}
     linhas = caminho.read_text(encoding="utf-8").splitlines()
@@ -93,7 +93,7 @@ def achar_timbrado(arg, campos):
         return Path(arg)
     if campos.get("timbrado"):
         return Path(os.path.expanduser(campos["timbrado"]))
-    padrao = praxis_home() / "timbrado.docx"
+    padrao = minuta_home() / "timbrado.docx"
     return padrao if padrao.is_file() else None
 
 

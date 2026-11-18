@@ -1,5 +1,5 @@
 # Nada do escritório entra aqui: perfil, timbrado, petições e base de teses
-# ficam na pasta pessoal (~/.claude/praxis), fora de qualquer repositório.
+# ficam na pasta pessoal (~/.claude/minuta), fora de qualquer repositório.
 *.docx
 *.doc
 *.pdf

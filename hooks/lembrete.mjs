@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Lembra o agente de carregar praxis:escrita quando o pedido é uma peça trabalhista,
+// Lembra o agente de carregar minuta:escrita quando o pedido é uma peça trabalhista,
 // uma vez por sessão. Nunca bloqueia nem falha: qualquer problema vira silêncio.
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, realpathSync, statSync, unlinkSync, writeFileSync } from "node:fs";
@@ -10,7 +10,7 @@ import { pathToFileURL } from "node:url";
 export const PECA_RE =
   /\b(peti[çc][ãa]o|peti[çc][õo]es|inicial|iniciais|contesta[çc][ãa]o|contesta[çc][õo]es|r[ée]plica|contrarraz[õo]es|crro|recurso ordin[áa]rio|reclama[çc][ãa]o trabalhista|tese|teses|pe[çc]a|pe[çc]as|rol de pedidos|timbrado)\b/i;
 export const LEMBRETE =
-  "praxis: este pedido envolve peça trabalhista. Antes de redigir ou revisar, carregue a skill praxis:escrita e leia ~/.claude/praxis/perfil.md e ~/.claude/praxis/gosto.md, se existirem. Para teses do escritório use praxis:teses; para o Word no timbrado, praxis:documento.";
+  "minuta: este pedido envolve peça trabalhista. Antes de redigir ou revisar, carregue a skill minuta:escrita e leia ~/.claude/minuta/perfil.md e ~/.claude/minuta/gosto.md, se existirem. Para teses do escritório use minuta:teses; para o Word no timbrado, minuta:documento.";
 
 const VALIDADE_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -24,8 +24,8 @@ export function decidir({ input, estado }) {
 }
 
 function pastaEstado(env) {
-  if (env.PRAXIS_STATE_DIR) return env.PRAXIS_STATE_DIR;
-  return join(env.CLAUDE_PLUGIN_DATA || join(env.XDG_CACHE_HOME || join(homedir(), ".cache"), "praxis"), "hooks");
+  if (env.MINUTA_STATE_DIR) return env.MINUTA_STATE_DIR;
+  return join(env.CLAUDE_PLUGIN_DATA || join(env.XDG_CACHE_HOME || join(homedir(), ".cache"), "minuta"), "hooks");
 }
 
 function limparAntigos(pasta, agora) {

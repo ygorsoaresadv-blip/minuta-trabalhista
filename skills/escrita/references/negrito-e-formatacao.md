@@ -1,6 +1,6 @@
 # Negrito e formatação
 
-Os padrões visuais das peças do escritório. O Word é gerado pela skill `praxis:documento`, sobre o timbrado do perfil; aqui está o
+Os padrões visuais das peças do escritório. O Word é gerado pela skill `minuta:documento`, sobre o timbrado do perfil; aqui está o
 que escrever e como marcar para ele sair certo.
 
 ## Sumário
@@ -51,7 +51,7 @@ frases). Julgado que já está na tese da base fica sem marcação nova.
 
 ## 3. Armadilhas do negrito automático
 
-Conferidas no código da `praxis:documento`:
+Conferidas no código da `minuta:documento`:
 
 - **Súmula no meio da frase:** o negrito vai do número até o ponto final e pega tudo. "conforme a Súmula nº 338, III, do
   TST, o pedido procede." sai inteiro em negrito. Ponha a citação no fim ou divida a frase.
@@ -86,7 +86,7 @@ Conferidas no código da `praxis:documento`:
 | Recuo de primeira linha | 2,5 cm no corpo do texto |
 | Sem recuo | Títulos, endereçamento, "Processo nº", "Termos em que,", "pede deferimento.", data, assinatura |
 | Centralizado | Nome e OAB do advogado, nome da ação, títulos de seção indicados em cada peça |
-| Timbrado | O timbrado do perfil (`praxis:documento`), nunca recriado |
+| Timbrado | O timbrado do perfil (`minuta:documento`), nunca recriado |
 
 Exceção: o que o advogado formatar à mão (fonte, tamanho, alinhamento, lista, grifo) fica como ele deixou.
 
@@ -106,7 +106,7 @@ Centralizados só o endereçamento e o nome da peça (RECLAMAÇÃO TRABALHISTA, 
 
 ## 7. Bloco de jurisprudência
 
-Ementa, acórdão, súmula ou tese transcrita vai em bloco próprio (`jurisprudencia` na `praxis:documento`): fonte 10, recuo de
+Ementa, acórdão, súmula ou tese transcrita vai em bloco próprio (`jurisprudencia` na `minuta:documento`): fonte 10, recuo de
 2,5 cm em **todas** as linhas, sem negrito automático. Se o trecho estiver dentro de um parágrafo maior, separe: texto
 do advogado em parágrafo comum, transcrição em bloco. Como chamar e como fechar o bloco está em
 `references/citacoes-e-parenteses.md`.

@@ -178,5 +178,5 @@ recomendação de jurisprudência ou de tese a redigir, entre parênteses em cai
 - Latim com parcimônia: `in re ipsa`, `bis in idem`, `ipsis litteris`, `in verbis`, `ultra petita`, `extra petita`,
   `ad cautelam`, `culpa in vigilando`.
 - **Expressão em língua estrangeira sempre em itálico** (latim e também inglês ou francês: *caput*, *data venia*,
-  *in re ipsa*, *home office*, *burnout*, *Parquet*). A skill `praxis:documento` aplica o itálico sozinha
+  *in re ipsa*, *home office*, *burnout*, *Parquet*). A skill `minuta:documento` aplica o itálico sozinha
   nas expressões mais comuns; o que ela não reconhecer, marque com `*...*`.

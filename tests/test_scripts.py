@@ -57,10 +57,10 @@ class TestMontarBase(unittest.TestCase):
         (self.pasta / "peticoes").mkdir()
         peticao_ficticia(self.pasta / "peticoes" / "2026.01.10 inicial.docx")
         self.home = self.pasta / "home"
-        os.environ["PRAXIS_HOME"] = str(self.home)
+        os.environ["MINUTA_HOME"] = str(self.home)
 
     def tearDown(self):
-        os.environ.pop("PRAXIS_HOME", None)
+        os.environ.pop("MINUTA_HOME", None)
         self.tmp.cleanup()
 
     def montar(self):
@@ -109,10 +109,10 @@ class TestGerarDocx(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.pasta = Path(self.tmp.name)
-        os.environ["PRAXIS_HOME"] = str(self.pasta / "home")
+        os.environ["MINUTA_HOME"] = str(self.pasta / "home")
 
     def tearDown(self):
-        os.environ.pop("PRAXIS_HOME", None)
+        os.environ.pop("MINUTA_HOME", None)
         self.tmp.cleanup()
 
     def test_usa_o_timbrado_e_apaga_o_corpo(self):

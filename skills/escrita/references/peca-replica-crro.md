@@ -131,7 +131,7 @@ Roteiro para recurso interposto pela reclamada terceirizadora (empregadora), nã
    fatos e da lei, não uma defesa reativa.
 5. **Citação dos autos:** só Id do PJe, nunca fls. ou página: sentença, recurso e no máximo 1 a 2 documentos probatórios
    centrais por tópico.
-6. **Estrutura:** duas partes, petição de encaminhamento e corpo das contrarrazões, assinadas pelo advogado do perfil, no timbrado (skill `praxis:documento`), com conferência visual antes de entregar.
+6. **Estrutura:** duas partes, petição de encaminhamento e corpo das contrarrazões, assinadas pelo advogado do perfil, no timbrado (skill `minuta:documento`), com conferência visual antes de entregar.
 7. **Ao final:** informe o prazo de protocolo pela data da intimação e alerte se for urgente.
 
 ## 4. Recurso ordinário (RO)

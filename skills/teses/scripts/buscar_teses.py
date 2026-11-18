@@ -17,8 +17,8 @@ import unicodedata
 from pathlib import Path
 
 
-def praxis_home():
-    return Path(os.environ.get("PRAXIS_HOME") or Path.home() / ".claude" / "praxis")
+def minuta_home():
+    return Path(os.environ.get("MINUTA_HOME") or Path.home() / ".claude" / "minuta")
 
 
 def sem_acento(t):
@@ -26,9 +26,9 @@ def sem_acento(t):
 
 
 def carregar(tipo, caminho=None):
-    arq = Path(caminho) if caminho else praxis_home() / "teses" / tipo / "base-teses.json"
+    arq = Path(caminho) if caminho else minuta_home() / "teses" / tipo / "base-teses.json"
     if not arq.is_file():
-        sys.exit(f"Base não encontrada em {arq}. Monte com montar_base.py (skill praxis:teses).")
+        sys.exit(f"Base não encontrada em {arq}. Monte com montar_base.py (skill minuta:teses).")
     return json.loads(arq.read_text(encoding="utf-8"))
 
 

@@ -18,7 +18,7 @@
 Só teses do escritório. Texto jurídico literal: a adaptação troca só os fatos. Nunca acrescente tese, artigo, súmula,
 julgado ou fundamento. A tese que falta é sinalizada, não redigida, salvo pedido expresso do advogado.
 
-As teses do escritório vêm da base montada pela skill `praxis:teses` a partir das petições do próprio advogado. Sem
+As teses do escritório vêm da base montada pela skill `minuta:teses` a partir das petições do próprio advogado. Sem
 base, ou sem a tese na base, siga a seção 5 (tese nova: inicial enxuta) e avise o advogado.
 
 ## 2. Estrutura da peça

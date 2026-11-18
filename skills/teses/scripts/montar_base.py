@@ -6,7 +6,7 @@ Uso:
     python montar_base.py "<pasta com as petições>" [--tipo inicial|contestacao] [--saida <pasta>]
         [--ignorar "TRECHO DE SUBPASTA"] [--incluir-fatos] [--permitir-repositorio]
 
-Gera, por padrão em ~/.claude/praxis/teses/<tipo>/ (ou PRAXIS_HOME/teses/<tipo>/):
+Gera, por padrão em ~/.claude/minuta/teses/<tipo>/ (ou MINUTA_HOME/teses/<tipo>/):
     base-teses.json              teses (texto literal anonimizado) e linhas de pedido
     relatorio-anonimizacao.md    o que foi trocado por marcador e o que PARECE dado pessoal e sobrou
 
@@ -15,7 +15,7 @@ Como funciona:
     - Tópicos com o mesmo título viram uma tese; ficam as 2 versões mais recentes.
     - Qualificação, endereçamento, assinatura e tópicos de fatos do caso (DO CONTRATO, DOS FATOS...) ficam fora.
     - Nome do cliente e das empresas da qualificação, CPF, CNPJ, RG, PIS, CTPS, e-mail, telefone, CEP, endereço,
-      número de processo e OAB viram marcadores. Termos extras: um por linha em ~/.claude/praxis/anonimizar-extra.txt.
+      número de processo e OAB viram marcadores. Termos extras: um por linha em ~/.claude/minuta/anonimizar-extra.txt.
     - A base nunca é gravada dentro de um repositório Git (salvo --permitir-repositorio).
 
 A anonimização é automática e falha: SEMPRE leia o relatório antes de usar a base.
@@ -37,8 +37,8 @@ import unicodedata
 from pathlib import Path
 
 
-def praxis_home():
-    return Path(os.environ.get("PRAXIS_HOME") or Path.home() / ".claude" / "praxis")
+def minuta_home():
+    return Path(os.environ.get("MINUTA_HOME") or Path.home() / ".claude" / "minuta")
 
 
 # ---------------------------------------------------------------------------
@@ -150,7 +150,7 @@ SOBRENOMES_COMUNS = {"silva", "santos", "souza", "sousa", "oliveira", "pereira",
 
 
 def ler_extras():
-    caminho = praxis_home() / "anonimizar-extra.txt"
+    caminho = minuta_home() / "anonimizar-extra.txt"
     if not caminho.is_file():
         return []
     linhas = caminho.read_text(encoding="utf-8").splitlines()
@@ -400,7 +400,7 @@ def main(argv=None):
         sys.exit("Instale o python-docx: pip install python-docx")
     if not os.path.isdir(a.pasta):
         sys.exit(f"Pasta não encontrada: {a.pasta}")
-    saida = Path(a.saida) if a.saida else praxis_home() / "teses" / a.tipo
+    saida = Path(a.saida) if a.saida else minuta_home() / "teses" / a.tipo
     repo = dentro_de_repositorio(saida.parent if not saida.exists() else saida)
     if repo and not a.permitir_repositorio:
         sys.exit(f"Recusado: {saida} fica dentro do repositório Git {repo}. A base não deve ir para o Git.")

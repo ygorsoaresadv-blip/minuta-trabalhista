@@ -1,6 +1,6 @@
 {
-  "name": "praxis-trabalhista",
-  "version": "0.1.0",
+  "name": "minuta-trabalhista",
+  "version": "0.2.0",
   "private": true,
   "description": "Base de redação de peças trabalhistas para o Claude Code.",
   "license": "MIT",

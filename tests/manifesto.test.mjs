@@ -7,20 +7,20 @@ import { fileURLToPath } from "node:url";
 const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
 const json = (c) => JSON.parse(readFileSync(join(raiz, c), "utf8"));
 
-test("plugin.json declara praxis sob MIT, com versão igual ao package.json", () => {
+test("plugin.json declara minuta sob MIT, com versão igual ao package.json", () => {
   const plugin = json(".claude-plugin/plugin.json");
-  assert.equal(plugin.name, "praxis");
+  assert.equal(plugin.name, "minuta");
   assert.equal(plugin.license, "MIT");
   assert.equal(plugin.version, json("package.json").version);
-  assert.equal(plugin.repository, "https://github.com/ygorsoaresadv-blip/praxis-trabalhista");
+  assert.equal(plugin.repository, "https://github.com/ygorsoaresadv-blip/minuta-trabalhista");
   assert.match(plugin.description, /^[\x20-\x7E]{20,}$/);
 });
 
 test("marketplace.json lista só o plugin da raiz", () => {
   const market = json(".claude-plugin/marketplace.json");
-  assert.equal(market.name, "praxis-trabalhista");
+  assert.equal(market.name, "minuta-trabalhista");
   assert.equal(market.plugins.length, 1);
-  assert.equal(market.plugins[0].name, "praxis");
+  assert.equal(market.plugins[0].name, "minuta");
   assert.equal(market.plugins[0].source, "./");
 });
 

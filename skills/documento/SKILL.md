@@ -1,6 +1,6 @@
 ---
 name: documento
-description: "Gera a peça trabalhista em Word (.docx) sobre o timbrado do próprio escritório, com a formatação de peça: fonte, entrelinha, recuos, bloco de jurisprudência em fonte menor e negrito automático de partes, valores, horas, datas, súmulas, OJs e temas. Use sempre que o advogado pedir o Word, o .docx, 'no timbrado', 'pronto para protocolo' ou 'passa a limpo', e ao fim de uma peça redigida com praxis:escrita. Também para configurar ou testar o timbrado do escritório."
+description: "Gera a peça trabalhista em Word (.docx) sobre o timbrado do próprio escritório, com a formatação de peça: fonte, entrelinha, recuos, bloco de jurisprudência em fonte menor e negrito automático de partes, valores, horas, datas, súmulas, OJs e temas. Use sempre que o advogado pedir o Word, o .docx, 'no timbrado', 'pronto para protocolo' ou 'passa a limpo', e ao fim de uma peça redigida com minuta:escrita. Também para configurar ou testar o timbrado do escritório."
 ---
 
 # Documento no timbrado do escritório
@@ -16,22 +16,22 @@ Requisitos: Python 3.9+ e `python-docx` (`pip install python-docx`). Se faltar, 
 O script procura, nesta ordem:
 
 1. o argumento `--timbrado caminho.docx`;
-2. o campo `timbrado:` no topo do perfil (`~/.claude/praxis/perfil.md`);
-3. `~/.claude/praxis/timbrado.docx`;
+2. o campo `timbrado:` no topo do perfil (`~/.claude/minuta/perfil.md`);
+3. `~/.claude/minuta/timbrado.docx`;
 4. nenhum: gera em folha branca, com as margens do perfil, e avisa.
 
-`~/.claude/praxis` pode ser trocada pela variável `PRAXIS_HOME`. O timbrado fica fora de qualquer repositório.
+`~/.claude/minuta` pode ser trocada pela variável `MINUTA_HOME`. O timbrado fica fora de qualquer repositório.
 
 ## Configurar o timbrado (primeira vez)
 
 1. Peça ao advogado o caminho do `.docx` com o timbrado. Se ele só tiver uma peça antiga no timbrado, sirva-se dela: o
    script apaga o corpo e mantém cabeçalho e rodapé. PDF ou imagem não servem; peça o Word.
-2. Copie para `~/.claude/praxis/timbrado.docx` (crie a pasta se faltar). Não mova o original.
+2. Copie para `~/.claude/minuta/timbrado.docx` (crie a pasta se faltar). Não mova o original.
 3. Gere a página de teste:
    `python "<pasta da skill>/scripts/gerar_docx.py" --testar "<pasta de trabalho>/teste-timbrado.docx"`
 4. Se puder, converta em PDF ou imagem e confira cabeçalho, rodapé, margens e o texto justificado. Mostre ao advogado.
 5. Se a fonte, o tamanho, a entrelinha ou o recuo do escritório forem outros, grave no topo do perfil (veja
-   `/praxis:perfil`): `fonte`, `tamanho`, `tamanho_jurisprudencia`, `entrelinha`, `recuo_cm`, `margens_cm`.
+   `/minuta:perfil`): `fonte`, `tamanho`, `tamanho_jurisprudencia`, `entrelinha`, `recuo_cm`, `margens_cm`.
 
 ## Gerar a peça
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 (2026-11-18)
+
+- `minuta:documento` monta o rol de pedidos (bloco `pedido`: letra em negrito, reflexos recuados que recomeçam a cada
+  pedido, pontilhado até o valor na margem direita) e o quadro das verbas rescisórias (bloco `tabela`: Arial 11,
+  cabeçalho e total em cinza, colunas de 6,8 + 3,4 + 3,4 cm). Antes, os dois tinham de ser ajustados à mão no Word.
+- O agente `minuta:redator` usa os blocos novos e, se não puder rodar os scripts, deixa o `conteudo.json` e os comandos
+  exatos no relatório, em vez de parar.
+- Testado de ponta a ponta num caso fictício: a minuta saiu sem erro na conferência e com as divergências e lacunas do
+  caso apontadas no relatório.
+
 ## 0.3.0 (2026-11-18)
 
 - Agente `redator`: redige a peça inteira de um caso a partir dos documentos (leitura, mapa, teses da base, redação,

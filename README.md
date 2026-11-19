@@ -57,6 +57,9 @@ Para a peça inteira de um caso, o Claude delega ao agente `minuta:redator`. Ele
    pendências) e com a lista de conferência;
 6. gera na pasta do caso `Minuta - <Peça> - <data>.docx` e o relatório com as pendências, sem sobrescrever nada.
 
+O agente roda os scripts em Python: na primeira vez, o Claude Code pede licença para executar `python`. Sem essa
+licença, ele entrega a minuta em `conteudo.json` com os dois comandos para conferir e gerar o Word.
+
 O que falta nos documentos vira marcador na peça e item no relatório: o agente não inventa nem pergunta no meio do
 caminho. Ele não protocola, não envia nada a ninguém e não leva dado do caso para a base de teses ou para a internet.
 Inicial, contestação, réplica, contrarrazões e recurso ordinário.

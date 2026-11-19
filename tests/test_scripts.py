@@ -158,6 +158,57 @@ class TestGerarDocx(unittest.TestCase):
             gerar_docx.gerar([{"type": "paragraph", "text": "**aberto"}], self.pasta / "d.docx")
 
 
+class TestRolETabela(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.pasta = Path(self.tmp.name)
+        os.environ["MINUTA_HOME"] = str(self.pasta / "home")
+
+    def tearDown(self):
+        os.environ.pop("MINUTA_HOME", None)
+        self.tmp.cleanup()
+
+    def test_letras(self):
+        self.assertEqual([gerar_docx.letra_do_rol(n) for n in (1, 2, 26, 27)], ["a", "b", "z", "aa"])
+
+    def test_rol_com_letras_reflexos_e_pontilhado(self):
+        blocos = [
+            {"type": "pedido", "text": "o pagamento de **horas extras**;", "valor": "R$ 100,00"},
+            {"type": "pedido", "nivel": 2, "text": "reflexos em DSR;", "valor": "R$ 10,00"},
+            {"type": "pedido", "nivel": 2, "text": "reflexos em férias + 1/3;", "valor": "A deferir"},
+            {"type": "pedido", "text": "a justiça gratuita;"},
+            {"type": "pedido", "nivel": 2, "text": "reflexo de teste;"},
+        ]
+        saida = self.pasta / "rol.docx"
+        gerar_docx.gerar(blocos, saida)
+        ps = Document(saida).paragraphs
+        self.assertEqual([p.text.split(" ")[0] for p in ps], ["a)", "a.", "b.", "b)", "a."])
+        self.assertTrue(ps[0].runs[0].bold)
+        self.assertTrue(ps[0].text.endswith("	R$ 100,00"))
+        self.assertTrue(ps[0].runs[-1].bold)
+        tab = ps[0].paragraph_format.tab_stops[0]
+        self.assertEqual(str(tab.leader), str(gerar_docx.WD_TAB_LEADER.DOTS))
+        self.assertNotIn("	", ps[3].text)
+        self.assertGreater(ps[1].paragraph_format.left_indent, 0)
+
+    def test_quadro_de_verbas(self):
+        blocos = [{"type": "tabela", "total": True, "linhas": [
+            ["Verbas Rescisórias", "Proporção", "Valores"], ["Saldo de Salário", "29 dias", "R$"],
+            ["Total a ser pago", "", "R$"]]}]
+        saida = self.pasta / "quadro.docx"
+        gerar_docx.gerar(blocos, saida)
+        doc = Document(saida)
+        tab = doc.tables[0]
+        self.assertEqual(len(tab.rows), 3)
+        cab = tab.cell(0, 0).paragraphs[0].runs[0]
+        self.assertTrue(cab.bold)
+        self.assertEqual(cab.font.name, "Arial")
+        self.assertIn('w:fill="BFBFBF"', tab.cell(0, 0)._tc.xml)
+        self.assertIn('w:fill="BFBFBF"', tab.cell(2, 0)._tc.xml)
+        self.assertNotIn("BFBFBF", tab.cell(1, 0)._tc.xml)
+        self.assertFalse(tab.cell(1, 0).paragraphs[0].runs[0].bold)
+
+
 class TestConferir(unittest.TestCase):
     BOA = [
         {"type": "config", "partes": ["Fulana de Tal"]},

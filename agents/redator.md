@@ -44,7 +44,9 @@ registre no relatório que é texto novo. Nunca busque com nome de cliente.
 
 ## 4. Redigir
 
-- Escreva direto no formato do `conteudo.json` da skill `minuta:documento`, com `config.partes`.
+- Escreva direto no formato do `conteudo.json` da skill `minuta:documento`, com `config.partes`. O rol vai em blocos
+  `pedido` (com `valor` e `nivel`) e o quadro das verbas rescisórias em bloco `tabela`; não escreva letras nem pontilhado
+  à mão.
 - Siga todas as regras de `minuta:escrita`: nada inventado, fundamento verificável, terceira pessoa, sem travessão,
   conclusão separada com um núcleo em negrito, citação no fim da frase.
 - Preencha advogado, OAB, cidade, UF e honorários com o perfil. Sem perfil, deixe os marcadores.
@@ -58,6 +60,10 @@ registre no relatório que é texto novo. Nunca busque com nome de cliente.
 2. Percorra a lista "Conferência antes de entregar" da skill `minuta:escrita` item por item. Confira cada pedido do
    corpo contra o rol (inicial) ou contra os pedidos da inicial (contestação).
 3. Releia cada fato, data e valor da peça contra a origem anotada no passo 1.
+
+Se os scripts não puderem rodar (Python ausente ou sem permissão), não pare: deixe o `conteudo.json` na pasta do caso,
+diga no relatório e na resposta os dois comandos exatos para conferir e gerar o Word, e faça à mão as checagens do
+`conferir.py`.
 
 ## 6. Gerar e entregar
 

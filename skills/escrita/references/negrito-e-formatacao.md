@@ -128,7 +128,7 @@ Essas marcas são para o advogado resolver antes do protocolo; a peça não sai 
 Só a inicial tem rol. Padrão do escritório:
 
 - Abre com o título DOS PEDIDOS e "Diante do exposto, requer a parte reclamante:".
-- Pedido principal: alínea `a)`, `b)`... em negrito, automática no Word.
+- Pedido principal: alínea `a)`, `b)`... em negrito, gerada pela `minuta:documento` (bloco `pedido`).
 - Reflexos: recuados, com `a.`, `b.` em negrito, recomeçando em cada pedido.
 - Texto justificado, terminado em ponto e vírgula, sem a letra escrita no texto.
 - Pontos pontilhados até o valor, em negrito, alinhado à margem direita.
@@ -173,7 +173,7 @@ discute o fim do contrato e pede as verbas):
 | Multa de 40% do FGTS | 40% | R$ |
 | **Total a ser pago** | | **R$** |
 
-Formato: Arial 11 centralizado, cabeçalho e total em cinza (BFBFBF), colunas de 6,8 + 3,4 + 3,4 cm, recuo de 1,25 cm no
+No Word, sai do bloco `tabela` da `minuta:documento`. Formato: Arial 11 centralizado, cabeçalho e total em cinza (BFBFBF), colunas de 6,8 + 3,4 + 3,4 cm, recuo de 1,25 cm no
 rol. Ficam fora do quadro, como pedidos próprios depois dele: multas dos arts. 467 e 477, depósitos do FGTS, liberação
 das guias e seguro-desemprego.
 

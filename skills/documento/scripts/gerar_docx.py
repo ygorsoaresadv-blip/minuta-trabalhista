@@ -32,7 +32,7 @@ from pathlib import Path
 
 try:
     from docx import Document
-    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING, WD_TAB_ALIGNMENT, WD_TAB_LEADER
     from docx.oxml.ns import qn
     from docx.shared import Cm, Pt
 except ImportError:
@@ -237,13 +237,25 @@ def segmentar(texto, so_partes, completo, auto=True, italico_auto=True):
 # ---------------------------------------------------------------------------
 # Montagem
 # ---------------------------------------------------------------------------
+def letra_do_rol(n):
+    """1 -> a, 26 -> z, 27 -> aa."""
+    s = ""
+    while n > 0:
+        n, r = divmod(n - 1, 26)
+        s = chr(97 + r) + s
+    return s
+
+
 class Montador:
     def __init__(self, documento, formato, partes):
         self.doc, self.f = documento, formato
         self.so_partes, self.completo = compilar(partes)
+        self.letra = 0  # alínea do rol (a, b, c...)
+        self.sub = 0    # reflexo dentro da alínea (a., b., c....), recomeça a cada pedido
 
-    def fonte(self, run, negrito=False, italico=False, sublinhado=False, tamanho=None):
-        run.font.name = self.f.fonte
+    def fonte(self, run, negrito=False, italico=False, sublinhado=False, tamanho=None, nome=None):
+        nome = nome or self.f.fonte
+        run.font.name = nome
         run.font.size = Pt(tamanho or self.f.tamanho)
         run.bold, run.italic, run.underline = negrito, italico, sublinhado
         rpr = run._element.get_or_add_rPr()
@@ -252,7 +264,68 @@ class Montador:
             rfonts = rpr.makeelement(qn("w:rFonts"), {})
             rpr.append(rfonts)
         for k in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
-            rfonts.set(qn(k), self.f.fonte)
+            rfonts.set(qn(k), nome)
+
+    def largura_util(self):
+        s = self.doc.sections[-1]
+        return s.page_width - s.left_margin - s.right_margin
+
+    def pedido(self, b):
+        """Item do rol: letra em negrito, texto justificado, pontilhado até o valor na margem direita."""
+        nivel = int(b.get("nivel", 1))
+        if nivel <= 1:
+            self.letra, self.sub = self.letra + 1, 0
+            marca = f"{letra_do_rol(self.letra)}) "
+        else:
+            self.sub += 1
+            marca = f"{letra_do_rol(self.sub)}. "
+        p = self.paragrafo("justify", False)
+        if nivel > 1:
+            p.paragraph_format.left_indent = Cm(1.25)
+        valor = str(b.get("valor", "") or "").strip()
+        if valor:
+            p.paragraph_format.tab_stops.add_tab_stop(self.largura_util(), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        self.fonte(p.add_run(marca), negrito=True)
+        for t, neg, ita in segmentar(b.get("text", ""), self.so_partes, self.completo, b.get("auto_negrito", True)):
+            self.fonte(p.add_run(t), negrito=neg, italico=ita)
+        if valor:
+            self.fonte(p.add_run("\t"))
+            self.fonte(p.add_run(valor), negrito=True)
+
+    def tabela(self, b):
+        """Quadro (ex.: verbas rescisórias): bordas simples, cabeçalho e total em cinza, texto centralizado."""
+        linhas = b.get("linhas") or []
+        if not linhas:
+            return
+        ncol = max(len(l) for l in linhas)
+        larguras = b.get("larguras_cm") or ([6.8, 3.4, 3.4] if ncol == 3 else [16.0 / ncol] * ncol)
+        nome, tamanho = b.get("fonte", "Arial"), float(b.get("tamanho", 11))
+        cabecalho, total = b.get("cabecalho", True), b.get("total", False)
+        tab = self.doc.add_table(rows=len(linhas), cols=ncol)
+        tblpr = tab._tbl.tblPr
+        bordas = tblpr.makeelement(qn("w:tblBorders"), {})
+        for lado in ("top", "left", "bottom", "right", "insideH", "insideV"):
+            bordas.append(bordas.makeelement(qn(f"w:{lado}"), {qn("w:val"): "single", qn("w:sz"): "4",
+                                                               qn("w:space"): "0", qn("w:color"): "000000"}))
+        tblpr.append(bordas)
+        recuo = float(b.get("recuo_cm", 1.25))
+        tblpr.append(tblpr.makeelement(qn("w:tblInd"), {qn("w:w"): str(int(recuo * 567)), qn("w:type"): "dxa"}))
+        for i, linha in enumerate(linhas):
+            destaque = (cabecalho and i == 0) or (total and i == len(linhas) - 1)
+            for j in range(ncol):
+                cel = tab.cell(i, j)
+                cel.width = Cm(larguras[j] if j < len(larguras) else larguras[-1])
+                if destaque:
+                    tcpr = cel._tc.get_or_add_tcPr()
+                    tcpr.append(tcpr.makeelement(qn("w:shd"), {qn("w:val"): "clear", qn("w:color"): "auto",
+                                                               qn("w:fill"): "BFBFBF"}))
+                p = cel.paragraphs[0]
+                p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.space_after = Pt(0)
+                texto = str(linha[j]) if j < len(linha) else ""
+                self.fonte(p.add_run(texto), negrito=destaque, tamanho=tamanho, nome=nome)
+        # respiro depois do quadro, como depois de um parágrafo
+        self.paragrafo("justify", False, espaco=True)
 
     def paragrafo(self, alinhamento, recuo, espaco=False, tamanho=None, recuo_total=False):
         p = self.doc.add_paragraph()
@@ -274,6 +347,12 @@ class Montador:
 
     def bloco(self, b):
         tipo = b.get("type", "paragraph")
+        if tipo == "pedido":
+            self.pedido(b)
+            return
+        if tipo == "tabela":
+            self.tabela(b)
+            return
         if tipo == "spacer":
             p = self.paragrafo(b.get("align", "justify"), False, espaco=True)
             self.fonte(p.add_run(""))

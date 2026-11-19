@@ -10,6 +10,8 @@ Lista JSON de blocos, na ordem do documento. Cada bloco vira um parágrafo do Wo
 | `heading` | Título | centralizado, negrito, sem recuo |
 | `jurisprudencia` | Ementa, súmula ou tese transcrita | fonte menor, recuo em todas as linhas, sem destaque automático |
 | `spacer` | Respiro extra (antes da assinatura, por exemplo) | linha vazia |
+| `pedido` | Item do rol de pedidos | letra automática em negrito (`a)`, `b)`; reflexo `a.`, `b.` recuado, recomeçando a cada pedido), pontilhado até o valor em negrito na margem direita |
+| `tabela` | Quadro, como o das verbas rescisórias | Arial 11 centralizado, bordas simples, cabeçalho (e total, se `"total": true`) em cinza BFBFBF, colunas de 6,8 + 3,4 + 3,4 cm, recuo de 1,25 cm |
 | `config` | Não vira texto: `{"type": "config", "partes": ["Nome", "Empresa Ltda"]}` | |
 
 Todo `paragraph` e `heading` já sai com uma linha de espaço depois. Não use `spacer` entre blocos comuns.
@@ -25,6 +27,27 @@ Todo `paragraph` e `heading` já sai com uma linha de espaço depois. Não use `
 | `bold`, `italic`, `underline` | paragraph, heading | | Aplica ao bloco inteiro |
 | `upper` | heading | `false` | Caixa alta |
 | `auto_negrito` | paragraph, heading, jurisprudencia | `true` (`false` em jurisprudencia) | Liga ou desliga os destaques automáticos no bloco |
+
+## Rol de pedidos e quadro
+
+```json
+[
+  {"type": "pedido", "text": "o pagamento de **horas extras** excedentes à 8ª diária e à 44ª semanal, com adicional de 50%;", "valor": "R$ 10.824,55"},
+  {"type": "pedido", "nivel": 2, "text": "reflexos em DSR;", "valor": "R$ 1.200,00"},
+  {"type": "pedido", "nivel": 2, "text": "reflexos em férias + 1/3;", "valor": "R$ [PENDENTE]"},
+  {"type": "pedido", "text": "a realização de perícia de insalubridade;", "valor": "A deferir"},
+  {"type": "pedido", "text": "a concessão dos benefícios da justiça gratuita;"},
+  {"type": "tabela", "total": true, "linhas": [
+    ["Verbas Rescisórias", "Proporção", "Valores"],
+    ["Saldo de Salário", "29 dias", "R$"],
+    ["Aviso prévio indenizado", "36 dias", "R$"],
+    ["Total a ser pago", "", "R$"]
+  ]}
+]
+```
+
+Não escreva a letra no texto do pedido: o script numera. Sem `valor`, o item sai sem pontilhado (pedidos gerais). Campos
+da tabela: `linhas` (obrigatório), `cabecalho` (padrão `true`), `total`, `larguras_cm`, `fonte`, `tamanho`, `recuo_cm`.
 
 ## Marcações dentro do texto
 

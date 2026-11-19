@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0 (2026-11-18)
+
+Primeira versão pronta para uso, depois de dois testes de ponta a ponta (inicial e contestação, casos fictícios) e de
+revisão jurídica e de código.
+
+- Agente: regras explícitas de conflito de interesse, sigilo (acordo, testemunhas e estratégia fora da peça),
+  precedente vinculante contrário (tese, eventualidade e risco no relatório) e credibilidade (não negar o que os
+  documentos do próprio cliente provam).
+- Word: folha A4 quando não há timbrado (antes saía em Carta); travessão também barrado no quadro e no valor do rol;
+  largura segura para timbrado sem tamanho de página.
+- Base de teses: o relatório de anonimização avisa que contém os dados originais e não deve ser compartilhado.
+- Scripts imprimem acentos corretamente no terminal do Windows.
+- README: permissões, tempo e custo medidos.
+
 ## 0.4.0 (2026-11-18)
 
 - `minuta:documento` monta o rol de pedidos (bloco `pedido`: letra em negrito, reflexos recuados que recomeçam a cada

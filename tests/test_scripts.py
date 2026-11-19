@@ -80,6 +80,7 @@ class TestMontarBase(unittest.TestCase):
         self.assertIn("[1ª RECLAMADA]", bruto)
         self.assertIn("[PROCESSO]", bruto)
         self.assertIn("Trocados por marcador", rel)
+        self.assertIn("contém os dados pessoais originais", rel)
 
     def test_guarda_a_tese_e_o_pedido(self):
         base, _ = self.montar()
@@ -129,8 +130,17 @@ class TestGerarDocx(unittest.TestCase):
         self.assertNotIn("texto antigo que deve sumir", textos)
         self.assertIn("RECLAMAÇÃO TRABALHISTA", textos)
 
-    def test_sem_timbrado_usa_folha_em_branco(self):
+    def test_sem_timbrado_usa_folha_em_branco_a4(self):
         self.assertIsNone(gerar_docx.gerar(gerar_docx.PAGINA_DE_TESTE, self.pasta / "a.docx"))
+        s = Document(self.pasta / "a.docx").sections[0]
+        self.assertAlmostEqual(s.page_width.cm, 21, places=1)
+        self.assertAlmostEqual(s.page_height.cm, 29.7, places=1)
+
+    def test_recusa_travessao_no_quadro_e_no_valor(self):
+        with self.assertRaises(ValueError):
+            gerar_docx.gerar([{"type": "tabela", "linhas": [["a — b"]]}], self.pasta / "e.docx")
+        with self.assertRaises(ValueError):
+            gerar_docx.gerar([{"type": "pedido", "text": "x;", "valor": "R$ 1,00 — teste"}], self.pasta / "f.docx")
 
     def test_formato_do_perfil(self):
         perfil = self.pasta / "perfil.md"

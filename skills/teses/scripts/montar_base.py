@@ -309,7 +309,9 @@ def relatorio(base, registro, ilegiveis):
     linhas = [f"# Relatório de anonimização ({base['gerado']})", "",
               f"{base['ndocs']} petição(ões), {len(base['teses'])} teses, {len(base['pedidos'])} linhas de pedido.", "",
               "Leia tudo antes de usar a base. A anonimização é automática e pode falhar. O que sobrou de dado pessoal",
-              "vai para `anonimizar-extra.txt` (um termo por linha) e a base é montada de novo.", ""]
+              "vai para `anonimizar-extra.txt` (um termo por linha) e a base é montada de novo.", "",
+              "**Este relatório contém os dados pessoais originais (coluna \"Texto original\").** Não o compartilhe nem o",
+              "envie a ninguém; apague-o depois de conferir. A base (`base-teses.json`) é que fica.", ""]
     linhas += ["## Trocados por marcador", "", "| Texto original | Marcador | Vezes |", "|---|---|---|"]
     for (orig, marc), n in sorted(registro.items(), key=lambda x: -x[1])[:400]:
         linhas.append(f"| {orig.replace('|', '/')} | {marc} | {n} |")
@@ -428,4 +430,6 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     main()

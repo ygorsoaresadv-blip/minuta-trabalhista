@@ -107,6 +107,7 @@ def conferir_proibidos(blocos):
     problemas = []
     for i, bloco in enumerate(blocos):
         textos = [bloco.get("text", "")] + [r.get("text", "") for r in bloco.get("runs", [])]
+        textos += [str(c) for linha in bloco.get("linhas", []) for c in linha] + [str(bloco.get("valor", ""))]
         for t in textos:
             for ch in PROIBIDOS:
                 if ch in t:
@@ -268,6 +269,8 @@ class Montador:
 
     def largura_util(self):
         s = self.doc.sections[-1]
+        if not (s.page_width and s.left_margin is not None and s.right_margin is not None):
+            return Cm(16)  # timbrado sem tamanho de página declarado
         return s.page_width - s.left_margin - s.right_margin
 
     def pedido(self, b):
@@ -390,6 +393,7 @@ def abrir_documento(timbrado, formato):
         return doc
     doc = Document()
     for s in doc.sections:
+        s.page_width, s.page_height = Cm(21), Cm(29.7)  # A4; o padrão do python-docx é Carta
         s.top_margin, s.right_margin, s.bottom_margin, s.left_margin = (Cm(x) for x in formato.margens)
     return doc
 
@@ -437,6 +441,8 @@ PAGINA_DE_TESTE = [
 
 
 if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description="Gera .docx de peça trabalhista sobre o timbrado do escritório.")
     ap.add_argument("conteudo", nargs="?", help="conteudo.json (omita com --testar)")
     ap.add_argument("saida")

@@ -57,8 +57,17 @@ Para a peça inteira de um caso, o Claude delega ao agente `minuta:redator`. Ele
    pendências) e com a lista de conferência;
 6. gera na pasta do caso `Minuta - <Peça> - <data>.docx` e o relatório com as pendências, sem sobrescrever nada.
 
-O agente roda os scripts em Python: na primeira vez, o Claude Code pede licença para executar `python`. Sem essa
-licença, ele entrega a minuta em `conteudo.json` com os dois comandos para conferir e gerar o Word.
+Antes de redigir, o agente confere conflito de interesse (o seu escritório aparecendo do outro lado), mantém fora da
+peça o que é reservado (acordo, testemunhas, estratégia), não apresenta como pacífica tese contrária a precedente
+vinculante e não nega o que os documentos do próprio cliente provam: tudo isso vai para o relatório.
+
+**Permissões.** O agente roda os scripts em Python. Na primeira vez, o Claude Code pede licença para executar `python`;
+aprove, ou acrescente em `.claude/settings.json` as regras `Bash(python:*)` e, no Windows, `PowerShell(python:*)`. Sem
+essa licença ele não para: entrega a minuta em `conteudo.json` com os dois comandos para conferir e gerar o Word.
+
+**Tempo e custo.** Nos testes com casos fictícios (inicial com cinco documentos; contestação com seis), cada peça levou
+de 9 a 10 minutos e consumiu o equivalente a US$ 3 a 4 de uso do modelo padrão do Claude Code. Isso sai do limite do
+seu plano do Claude (ou da sua cobrança por uso da API).
 
 O que falta nos documentos vira marcador na peça e item no relatório: o agente não inventa nem pergunta no meio do
 caminho. Ele não protocola, não envia nada a ninguém e não leva dado do caso para a base de teses ou para a internet.

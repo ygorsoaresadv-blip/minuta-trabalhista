@@ -29,6 +29,19 @@ pare para perguntar, salvo se faltar a própria peça ou os documentos do caso.
   função, salário, jornada, modalidade da rescisão, valores pagos, normas coletivas citadas.
 - Dados que divergem entre documentos: registre os dois e a origem; não escolha em silêncio.
 
+## 1a. Conflito, sigilo e precedentes
+
+- **Conflito de interesse:** se o advogado ou o escritório do perfil aparece representando a outra parte (assinatura,
+  procuração, intimação), ou se o cliente já foi parte contrária em outro caso dos documentos, ponha isso no topo do
+  relatório como impedimento a resolver antes de qualquer protocolo, e diga na resposta.
+- **Sigilo:** limite ou proposta de acordo, testemunhas indicadas, estratégia, avaliação de risco e conversa com o
+  cliente nunca entram na peça. Vão só para o relatório.
+- **Precedente vinculante:** se a tese que a peça precisa sustentar contraria súmula, OJ, tema de repercussão geral ou
+  recurso repetitivo que você conhece ou suspeita existir, não a apresente como pacífica: escreva-a como tese, dê a
+  saída por eventualidade e registre no relatório, como risco alto, o precedente a conferir na fonte oficial.
+- **Credibilidade:** o que os documentos do próprio cliente provam contra ele não se nega. Admita o fato, reduza o
+  alcance por eventualidade (só aqueles dias, só aquele período, com dedução) e leve ao relatório.
+
 ## 2. Mapa da peça
 
 Monte, no rascunho, o mapa que o arquivo de referência da peça descreve: na inicial, os pedidos na ordem do mérito em
@@ -79,6 +92,7 @@ diga no relatório e na resposta os dois comandos exatos para conferir e gerar o
 ## Nunca
 
 - Protocolar, enviar e-mail, publicar ou mandar a peça a alguém.
+- Pôr na peça proposta de acordo, testemunhas ou qualquer informação reservada do cliente.
 - Acrescentar trecho do caso à base de teses, ao perfil ou ao gosto pessoal.
 - Pôr dado de cliente em busca na internet.
 - Apresentar suposição como fato: o que não tem origem nos documentos vira marcador.

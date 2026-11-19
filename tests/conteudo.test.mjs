@@ -25,6 +25,9 @@ test("agente redator: frontmatter, skills citadas existem e nenhuma ação exter
   for (const [, nome] of texto.matchAll(/minuta:(\w+)/g)) assert.ok(skills.includes(nome), `skill minuta:${nome} não existe`);
   for (const script of ["buscar_teses.py", "conferir.py", "gerar_docx.py"]) assert.ok(texto.includes(script), script);
   assert.match(texto, /## Nunca[\s\S]*Protocolar/);
+  for (const regra of ["Conflito de interesse", "Sigilo", "Precedente vinculante", "Credibilidade"]) {
+    assert.ok(texto.includes(regra), `falta a regra: ${regra}`);
+  }
 });
 
 for (const skill of skills) {

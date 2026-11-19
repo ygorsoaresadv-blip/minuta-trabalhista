@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 (2026-11-18)
+
+- Agente `redator`: redige a peça inteira de um caso a partir dos documentos (leitura, mapa, teses da base, redação,
+  conferência, Word no timbrado e relatório de pendências na pasta do caso).
+- `skills/escrita/scripts/conferir.py`: conferência mecânica do `conteudo.json` antes do Word, com erros (travessão,
+  primeira pessoa, negrito aberto, "Súm.", folhas em réplica/CRRO/RO, marcador no RO, inicial sem rol) e avisos
+  (pendências, tópico sem pedido em negrito, dados do perfil sem preencher, parágrafo longo, hora "7:30", "(a)").
+- O lembrete do hook passa a indicar o agente para a peça inteira.
+
 ## 0.2.0 (2026-11-18)
 
 - O plugin passa a se chamar `minuta` (antes `praxis`), e o repositório, `minuta-trabalhista`. Os comandos viram

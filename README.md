@@ -32,7 +32,8 @@ Requisitos: Python 3.9 ou mais novo e `pip install python-docx`. Para petições
 
 1. `/minuta:perfil`: cadastra o escritório (advogado, OAB, cidade, honorários, fecho da inicial) e o timbrado.
 2. Peça ao Claude: "monta minha base de teses com as iniciais da pasta X". Leia o relatório de anonimização.
-3. Peça a peça: "faz a inicial de horas extras e intervalo com estes fatos", e depois "gera o Word".
+3. Peça a peça: "faz a inicial deste caso com os documentos da pasta Y". O agente redator lê os documentos, redige,
+   confere e entrega o Word e um relatório de pendências.
 
 ## O que tem
 
@@ -43,6 +44,28 @@ Requisitos: Python 3.9 ou mais novo e `pip install python-docx`. Para petições
 | `minuta:teses` | Monta a base de teses a partir das suas petições `.docx`, troca dados pessoais por marcadores e entrega um relatório do que trocou e do que parece ter sobrado. Busca e mostra a tese literal para adaptar. |
 | `minuta:perfil` | Cria o perfil do escritório em `~/.claude/minuta/perfil.md`. |
 | `minuta:lembrar` | Guarda uma correção sua no perfil do escritório ou no seu gosto pessoal, para não repetir. |
+
+## Agente redator
+
+Para a peça inteira de um caso, o Claude delega ao agente `minuta:redator`. Ele trabalha sozinho, do começo ao fim:
+
+1. lê os documentos do caso (relato, CTPS, holerites, cartões de ponto, TRCT, inicial, contestação, sentença);
+2. monta o mapa da peça: pedidos na ordem do mérito, prova de cada um, divergências entre documentos;
+3. busca na sua base as teses de cada tópico e adapta em modo literal; o que não está na base vira texto novo enxuto;
+4. redige pelas regras de `minuta:escrita` e com os dados do seu perfil;
+5. confere com `conferir.py` (travessão, primeira pessoa, "Súm.", folhas onde se cita Id, tópico sem pedido em negrito,
+   pendências) e com a lista de conferência;
+6. gera na pasta do caso `Minuta - <Peça> - <data>.docx` e o relatório com as pendências, sem sobrescrever nada.
+
+O que falta nos documentos vira marcador na peça e item no relatório: o agente não inventa nem pergunta no meio do
+caminho. Ele não protocola, não envia nada a ninguém e não leva dado do caso para a base de teses ou para a internet.
+Inicial, contestação, réplica, contrarrazões e recurso ordinário.
+
+A conferência também roda sozinha, sobre qualquer minuta:
+
+```
+python skills/escrita/scripts/conferir.py conteudo.json --peca inicial
+```
 
 ## Três camadas
 

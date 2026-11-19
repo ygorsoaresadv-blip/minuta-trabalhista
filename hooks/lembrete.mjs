@@ -10,7 +10,7 @@ import { pathToFileURL } from "node:url";
 export const PECA_RE =
   /\b(peti[çc][ãa]o|peti[çc][õo]es|inicial|iniciais|contesta[çc][ãa]o|contesta[çc][õo]es|r[ée]plica|contrarraz[õo]es|crro|recurso ordin[áa]rio|reclama[çc][ãa]o trabalhista|tese|teses|pe[çc]a|pe[çc]as|rol de pedidos|timbrado)\b/i;
 export const LEMBRETE =
-  "minuta: este pedido envolve peça trabalhista. Antes de redigir ou revisar, carregue a skill minuta:escrita e leia ~/.claude/minuta/perfil.md e ~/.claude/minuta/gosto.md, se existirem. Para teses do escritório use minuta:teses; para o Word no timbrado, minuta:documento.";
+  "minuta: este pedido envolve peça trabalhista. Antes de redigir ou revisar, carregue a skill minuta:escrita e leia ~/.claude/minuta/perfil.md e ~/.claude/minuta/gosto.md, se existirem. Para teses do escritório use minuta:teses; para o Word no timbrado, minuta:documento. Para a peça inteira de um caso a partir dos documentos, delegue ao agente minuta:redator.";
 
 const VALIDADE_MS = 7 * 24 * 60 * 60 * 1000;
 

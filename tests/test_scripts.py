@@ -22,6 +22,7 @@ def carregar(nome, caminho):
 gerar_docx = carregar("gerar_docx", "skills/documento/scripts/gerar_docx.py")
 montar_base = carregar("montar_base", "skills/teses/scripts/montar_base.py")
 buscar_teses = carregar("buscar_teses", "skills/teses/scripts/buscar_teses.py")
+conferir = carregar("conferir", "skills/escrita/scripts/conferir.py")
 
 
 def titulo(doc, texto):
@@ -155,6 +156,49 @@ class TestGerarDocx(unittest.TestCase):
             gerar_docx.gerar([{"type": "paragraph", "text": "a — b"}], self.pasta / "c.docx")
         with self.assertRaises(ValueError):
             gerar_docx.gerar([{"type": "paragraph", "text": "**aberto"}], self.pasta / "d.docx")
+
+
+class TestConferir(unittest.TestCase):
+    BOA = [
+        {"type": "config", "partes": ["Fulana de Tal"]},
+        {"type": "heading", "text": "RECLAMAÇÃO TRABALHISTA"},
+        {"type": "heading", "text": "DAS HORAS EXTRAS E REFLEXOS", "align": "justify"},
+        {"type": "paragraph", "text": "A reclamante trabalhava das 8h às 18h, nos termos do art. 59 da CLT."},
+        {"type": "paragraph", "text": "Requer, portanto, o pagamento de **horas extras** e reflexos."},
+        {"type": "heading", "text": "DOS PEDIDOS", "align": "justify"},
+        {"type": "paragraph", "text": "a) o pagamento de **horas extras**;", "indent": False},
+        {"type": "paragraph", "text": "[ADVOGADO]", "align": "center", "indent": False},
+    ]
+
+    def test_peca_boa_so_avisa_o_perfil(self):
+        erros, avisos = conferir.conferir(self.BOA, "inicial")
+        self.assertEqual(erros, [])
+        self.assertEqual(len(avisos), 1)
+        self.assertIn("[ADVOGADO]", avisos[0])
+
+    def test_erros(self):
+        ruim = [
+            {"type": "heading", "text": "DO INTERVALO", "align": "justify"},
+            {"type": "paragraph", "text": "Requeremos o intervalo — conforme Súm. 437 do TST, fls. 12."},
+            {"type": "paragraph", "text": "[PENDENTE: data] e **aberto"},
+        ]
+        erros, avisos = conferir.conferir(ruim, "ro")
+        texto = " ".join(erros)
+        for trecho in ["travessão", "primeira pessoa", "Súm.", "folhas", "marcador no RO", "negrito aberto", "DOS PEDIDOS"]:
+            if trecho == "DOS PEDIDOS":
+                self.assertNotIn(trecho, texto)  # só a inicial exige rol
+            else:
+                self.assertIn(trecho, texto, trecho)
+
+    def test_topico_sem_pedido_em_negrito(self):
+        blocos = [{"type": "heading", "text": "DO DANO MORAL", "align": "justify"},
+                  {"type": "paragraph", "text": "Requer a condenação ao pagamento de indenização."}]
+        _, avisos = conferir.conferir(blocos, "contestacao")
+        self.assertTrue(any("DO DANO MORAL" in a for a in avisos))
+
+    def test_jurisprudencia_nao_e_conferida_como_texto_do_advogado(self):
+        blocos = [{"type": "jurisprudencia", "text": "Entendemos que o Relator(a) decidiu às 7:30, fls. 3."}]
+        self.assertEqual(conferir.conferir(blocos, "replica"), ([], []))
 
 
 if __name__ == "__main__":

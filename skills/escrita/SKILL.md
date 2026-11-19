@@ -126,6 +126,10 @@ base; por último, o costume dos textos antigos. Consequências práticas:
 
 ## Conferência antes de entregar
 
+Se a peça vai para o Word, rode antes a conferência mecânica sobre o `conteudo.json`:
+`python "<pasta desta skill>/scripts/conferir.py" conteudo.json --peca inicial` (ou `contestacao`, `replica`, `crro`,
+`ro`). Corrija todo ERRO; leve os AVISOS ao advogado. Ela confere a forma; o resto da lista abaixo é com você.
+
 - [ ] Nenhum "—" no texto.
 - [ ] Nenhum fato, data, Doc., Id ou valor sem origem nos autos.
 - [ ] Cada lacuna virou marcador, e nenhum marcador ficou esquecido na lista de pendências.

@@ -17,6 +17,16 @@ test("as cinco skills existem", () => {
   assert.deepEqual([...skills].sort(), ["documento", "escrita", "lembrar", "perfil", "teses"]);
 });
 
+test("agente redator: frontmatter, skills citadas existem e nenhuma ação externa permitida", () => {
+  const texto = readFileSync(join(raiz, "agents", "redator.md"), "utf8");
+  const fm = frontmatter(texto);
+  assert.match(fm, /^name: redator$/m);
+  assert.match(fm, /^description: .{200,}$/m);
+  for (const [, nome] of texto.matchAll(/minuta:(\w+)/g)) assert.ok(skills.includes(nome), `skill minuta:${nome} não existe`);
+  for (const script of ["buscar_teses.py", "conferir.py", "gerar_docx.py"]) assert.ok(texto.includes(script), script);
+  assert.match(texto, /## Nunca[\s\S]*Protocolar/);
+});
+
 for (const skill of skills) {
   const pasta = join(raiz, "skills", skill);
   const texto = readFileSync(join(pasta, "SKILL.md"), "utf8");

@@ -1,6 +1,6 @@
 {
   "name": "minuta",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Brazilian labor law drafting base for Claude Code: writing rules for pleadings, your own letterhead in Word, and a private, anonymized base built from your own petitions.",
   "author": { "name": "Ygor Soares", "url": "https://github.com/ygorsoaresadv-blip" },
   "homepage": "https://github.com/ygorsoaresadv-blip/minuta-trabalhista",
